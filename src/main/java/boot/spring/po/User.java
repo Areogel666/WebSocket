@@ -1,7 +1,7 @@
 package boot.spring.po;
 
 public class User {
-	Long uid;
+	String uid;
 	
 	String name;
 	
@@ -9,17 +9,17 @@ public class User {
 		super();
 	}
 
-	public User(Long uid, String name) {
+	public User(String uid, String name) {
 		super();
 		this.uid = uid;
 		this.name = name;
 	}
 
-	public Long getUid() {
+	public String getUid() {
 		return uid;
 	}
 
-	public void setUid(Long uid) {
+	public void setUid(String uid) {
 		this.uid = uid;
 	}
 

@@ -2,10 +2,10 @@ package boot.spring.po;
 
 
 public class Staff {
-	private byte staff_id;
+	private String staff_id;
 	private String first_name;
 	private String last_name;
-	private short address_id;
+	private String address_id;
 	private String email;
 	private String username;
 	private String password;
@@ -15,10 +15,10 @@ public class Staff {
 	public String getLast_update() {
 		return last_update;
 	}
-	public byte getStaff_id() {
+	public String getStaff_id() {
 		return staff_id;
 	}
-	public void setStaff_id(byte staff_id) {
+	public void setStaff_id(String staff_id) {
 		this.staff_id = staff_id;
 	}
 	public void setLast_update(String last_update) {
@@ -37,10 +37,10 @@ public class Staff {
 		this.last_name = last_name;
 	}
 	
-	public short getAddress_id() {
+	public String getAddress_id() {
 		return address_id;
 	}
-	public void setAddress_id(short address_id) {
+	public void setAddress_id(String address_id) {
 		this.address_id = address_id;
 	}
 	public String getEmail() {

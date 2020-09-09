@@ -22,7 +22,7 @@ import boot.spring.service.WebSocketServer;
 public class ChatController {
 
 	@Autowired
-	LoginService loginservice;
+	LoginService loginService;
 	
 
 	@RequestMapping("/onlineusers")
@@ -44,7 +44,7 @@ public class ChatController {
 	@RequestMapping("getuid")
 	@ResponseBody
 	public User getuid(@RequestParam("username") String username) {
-		Long a = loginservice.getUidbyname(username);
+		String a = loginService.getUidbyname(username);
 		User u = new User();
 		u.setUid(a);
 		return u;
