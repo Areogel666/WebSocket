@@ -90,9 +90,9 @@
         // 指定websocket路径
         var websocket;
         $.get("/currentuser", function (data) {
-            user = data.name;
+            user = data.code;
             uid = data.uid;
-            $("#user").html(user);
+            $("#user").html(data.name);
 
             if ('WebSocket' in window) {
                 websocket = new WebSocket("ws://" + window.location.host + "/webSocket/" + user);
