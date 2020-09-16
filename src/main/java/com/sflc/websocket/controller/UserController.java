@@ -36,18 +36,20 @@ public class UserController {
 
     /**
      * 登录消息平台
-     * @description 账号密码校验
-     * @param code 用户账号
-     * @param pwd 用户密码
+     *
+     * @param code        用户账号
+     * @param pwd         用户密码
      * @param httpSession session
      * @return java.lang.String
+     * @description 账号密码校验
      * @author Areogel
      * @date 2020/9/14 13:13
      */
     @RequestMapping("/loginvalidate")
     public String loginvalidate(@RequestParam("code") String code, @RequestParam("password") String pwd, HttpSession httpSession) {
-        if (code == null)
+        if (code == null) {
             return "login";
+        }
         User user = loginservice.getUserByCode(code);
         String realpwd = user.getPwd_src();
         if (realpwd != null && pwd.equals(realpwd)) {
@@ -60,8 +62,9 @@ public class UserController {
 
     /**
      * 登录页跳转
-     * @description
+     *
      * @return java.lang.String
+     * @description
      * @author Areogel
      * @date 2020/9/14 13:15
      */
@@ -72,9 +75,10 @@ public class UserController {
 
     /**
      * 登出页跳转
-     * @description
+     *
      * @param httpSession session
      * @return java.lang.String
+     * @description
      * @author Areogel
      * @date 2020/9/14 13:16
      */
@@ -85,9 +89,10 @@ public class UserController {
 
     /**
      * 查询当前在线用户
-     * @description
+     *
      * @param httpSession session
      * @return com.sflc.websocket.model.User
+     * @description
      * @author Areogel
      * @date 2020/9/14 13:16
      */
@@ -100,9 +105,10 @@ public class UserController {
 
     /**
      * 在线用户（除本账号）
-     * @description 用于消息群发
+     *
      * @param currentuser 当前用户
      * @return java.util.Set<java.lang.String>
+     * @description 用于消息群发
      * @author Areogel
      * @date: 2020/9/14 11:35
      */

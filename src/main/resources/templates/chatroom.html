@@ -103,14 +103,14 @@
                 var data = JSON.parse(event.data);
                 console.log("data", data);
                 if (data.to == 0) {//上线消息
-                    if (data.text != user) {
-                        $("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">' + data.text + '</a>');
-                        alert(data.text + "上线了");
+                    if (data.from != user) {
+                        $("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">' + data.from + '</a>');
+                        alert(data.text);
                     }
                 } else if (data.to == -2) {//下线消息
-                    if (data.text != user) {
-                        $("#users > a").remove(":contains('" + data.text + "')");
-                        alert(data.text + "下线了");
+                    if (data.from != user) {
+                        $("#users > a").remove(":contains('" + data.from + "')");
+                        alert(data.text);
                     }
                 } else {
                     // 普通消息

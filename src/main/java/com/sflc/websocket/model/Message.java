@@ -1,19 +1,25 @@
 package com.sflc.websocket.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.sflc.websocket.base.MessageType;
 
 
 public class Message {
 
-    //登录上线广播
-    public static final String MESSAGE_TO_LOGIN = "0";
-    //消息广播
+    //广播消息
     public static final String MESSAGE_TO_BROADCAST = "-1";
-    //下线广播
+    //登录消息
+    public static final String MESSAGE_TO_LOGIN = "0";
+    //登出消息
     public static final String MESSAGE_TO_LOGOUT = "-2";
+//    //系统通知
+//    public static final int MESSAGE_TYPE_SYSTEM = 0;
+//    //上下线通知
+//    public static final int MESSAGE_TYPE_LOGIN = 1;
+//    //普通消息
+//    public static final int MESSAGE_TYPE_COMMON = 2;
 
     //发送者name
     private String from;
@@ -26,6 +32,8 @@ public class Message {
     private LocalDateTime date;
     //是否存储
     private boolean is_cache;
+    //消息类型
+    public MessageType mType;
 
     public Message() {
         super();
@@ -69,5 +77,25 @@ public class Message {
 
     public void setIs_cache(boolean is_cache) {
         this.is_cache = is_cache;
+    }
+
+    public MessageType getmType() {
+        return mType;
+    }
+
+    public void setmType(MessageType mType) {
+        this.mType = mType;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", text='" + text + '\'' +
+                ", date=" + date +
+                ", is_cache=" + is_cache +
+                ", mType=" + mType +
+                '}';
     }
 }

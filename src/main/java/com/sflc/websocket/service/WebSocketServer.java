@@ -9,14 +9,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import com.sflc.websocket.base.MessageType;
+import com.sflc.websocket.util.message.TextGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -120,8 +118,9 @@ public class WebSocketServer {
             // 广播上线消息
             Message msg = new Message();
             msg.setDate(LocalDateTime.now());
+            msg.setFrom(userCode);
             msg.setTo("0");
-            msg.setText(userCode);
+            msg.setText(TextGenerator.getTextGenerator(msg).loginMessageText());
             broadcast(JSON.toJSONString(msg, true));
         }
     }
@@ -150,9 +149,10 @@ public class WebSocketServer {
                 log.info(userCode + "断开webSocket连接！当前人数为：" + onlineNum);
                 // 广播下线消息
                 Message msg = new Message();
+                msg.setFrom(userCode);
                 msg.setDate(LocalDateTime.now());
                 msg.setTo("-2");
-                msg.setText(userCode);
+                msg.setText(TextGenerator.getTextGenerator(msg).loginMessageText());
                 broadcast(JSON.toJSONString(msg, true));
             }
         }
@@ -166,14 +166,28 @@ public class WebSocketServer {
      * @date 2020/9/15 17:04
      */
     @OnMessage
-    public void onMessage(String message) throws IOException {
+    public void onMessage(String message) {
         log.debug("WebSocket服务器接收数据：" + message);
-        Message msg = JSON.parseObject(message, Message.class);
-        msg.setDate(LocalDateTime.now());
-        if (msg.getTo().equals("-1")) {
-            broadcast(JSON.toJSONString(msg, true));
-        } else {
-            sendInfo(msg.getTo(), JSON.toJSONString(msg, true));
+        Message msg = JSON.parseObject(message, Message.class);;
+        try {
+            msg.setDate(LocalDateTime.now());
+            if (msg.getTo().equals("-1")) {
+                msg.setText(TextGenerator.getTextGenerator(msg).simpleMessageText());
+                broadcast(JSON.toJSONString(msg, true));
+            } else {
+                msg.setmType(MessageType.MESSAGE_TYPE_COMMON);
+                msg.setText(TextGenerator.getTextGenerator(msg).simpleMessageText());
+                sendInfo(msg.getTo(), JSON.toJSONString(msg, true));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            String from = msg.getFrom();
+            msg = new Message();
+            msg.setFrom(from);
+            msg.setDate(LocalDateTime.now());
+            msg.setTo(from);
+            msg.setText("消息发送失败");
+            sendInfo(from, JSON.toJSONString(msg, true));
         }
     }
 
