@@ -1,6 +1,5 @@
 package com.sflc.websocket.service;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Vector;
@@ -13,8 +12,8 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import com.sflc.websocket.base.MessageType;
-import com.sflc.websocket.util.message.TextGenerator;
+import com.sflc.websocket.util.message.MessageType;
+import com.sflc.websocket.util.message.text.TextGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -116,12 +115,15 @@ public class WebSocketServer {
             addOnlineCount();
             log.info(userCode + "加入webSocket！当前人数为：" + onlineNum);
             // 广播上线消息
+            /*
             Message msg = new Message();
             msg.setDate(LocalDateTime.now());
             msg.setFrom(userCode);
-            msg.setTo("0");
-            msg.setText(TextGenerator.getTextGenerator(msg).loginMessageText());
+            msg.setTo(Message.MESSAGE_TO_LOGIN);
+//            msg.setTitle("登录登出提示");
+            msg.setText(TextGenerator.getTextGenerator().loginMessageText(msg));
             broadcast(JSON.toJSONString(msg, true));
+            */
         }
     }
 
@@ -148,12 +150,14 @@ public class WebSocketServer {
                 subOnlineCount();
                 log.info(userCode + "断开webSocket连接！当前人数为：" + onlineNum);
                 // 广播下线消息
+                /*
                 Message msg = new Message();
                 msg.setFrom(userCode);
                 msg.setDate(LocalDateTime.now());
-                msg.setTo("-2");
-                msg.setText(TextGenerator.getTextGenerator(msg).loginMessageText());
+                msg.setTo(Message.MESSAGE_TO_LOGOUT);
+                msg.setText(TextGenerator.getTextGenerator().loginMessageText(msg));
                 broadcast(JSON.toJSONString(msg, true));
+                */
             }
         }
     }
@@ -172,11 +176,11 @@ public class WebSocketServer {
         try {
             msg.setDate(LocalDateTime.now());
             if (msg.getTo().equals("-1")) {
-                msg.setText(TextGenerator.getTextGenerator(msg).simpleMessageText());
+                msg.setText(TextGenerator.getTextGenerator().genericMessageText(msg));
                 broadcast(JSON.toJSONString(msg, true));
             } else {
                 msg.setmType(MessageType.MESSAGE_TYPE_COMMON);
-                msg.setText(TextGenerator.getTextGenerator(msg).simpleMessageText());
+                msg.setText(TextGenerator.getTextGenerator().genericMessageText(msg));
                 sendInfo(msg.getTo(), JSON.toJSONString(msg, true));
             }
         } catch (Exception e) {

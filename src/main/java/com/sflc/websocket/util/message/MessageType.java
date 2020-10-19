@@ -1,4 +1,4 @@
-package com.sflc.websocket.base;
+package com.sflc.websocket.util.message;
 
 /**
  * @ClassName MessageType

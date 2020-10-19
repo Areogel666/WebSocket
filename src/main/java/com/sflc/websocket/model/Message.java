@@ -3,7 +3,7 @@ package com.sflc.websocket.model;
 import java.time.LocalDateTime;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.sflc.websocket.base.MessageType;
+import com.sflc.websocket.util.message.MessageType;
 
 
 public class Message {
@@ -14,13 +14,11 @@ public class Message {
     public static final String MESSAGE_TO_LOGIN = "0";
     //登出消息
     public static final String MESSAGE_TO_LOGOUT = "-2";
-//    //系统通知
-//    public static final int MESSAGE_TYPE_SYSTEM = 0;
-//    //上下线通知
-//    public static final int MESSAGE_TYPE_LOGIN = 1;
-//    //普通消息
-//    public static final int MESSAGE_TYPE_COMMON = 2;
+    //登出消息
+    public static final String MESSAGE_TO_CONDITION = "9";
 
+    //主键id
+    private int id;
     //发送者name
     private String from;
     //接收者name
@@ -30,13 +28,23 @@ public class Message {
     //发送时间
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
+    //消息类别说明
+    private String title;
     //是否存储
     private boolean is_cache;
-    //消息类型
+    //消息样式类型(用于文本样式生成)
     public MessageType mType;
 
     public Message() {
         super();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFrom() {
@@ -71,6 +79,14 @@ public class Message {
         this.date = date;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public boolean isIs_cache() {
         return is_cache;
     }
@@ -84,6 +100,9 @@ public class Message {
     }
 
     public void setmType(MessageType mType) {
+        if (!MessageType.MESSAGE_TYPE_COMMON.equals(mType)) {
+            this.from = "系统通知";
+        }
         this.mType = mType;
     }
 

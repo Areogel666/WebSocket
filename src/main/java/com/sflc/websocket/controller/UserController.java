@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 
 /**
@@ -117,14 +118,17 @@ public class UserController {
     @ResponseBody
     public Set<String> onlineusers(@RequestParam("currentuser") String currentuser) {
         ConcurrentHashMap<String, Vector<Session>> map = WebSocketServer.getSessionPools();
-        Set<String> set = map.keySet();
-        Iterator<String> it = set.iterator();
-        Set<String> nameset = new HashSet<String>();
-        while (it.hasNext()) {
-            String entry = it.next();
-            if (!entry.equals(currentuser))
-                nameset.add(entry);
-        }
-        return nameset;
+        Set<String> codeSet = map.keySet();
+        return codeSet.stream().filter(code -> !code.equals(currentuser))
+                    .collect(Collectors.toSet());
+
+//        Iterator<String> it = codeSet.iterator();
+//        Set<String> nameset = new HashSet<String>();
+//        while (it.hasNext()) {
+//            String entry = it.next();
+//            if (!entry.equals(currentuser))
+//                nameset.add(entry);
+//        }
+//        return nameset;
     }
 }

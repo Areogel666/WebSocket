@@ -10,4 +10,8 @@ public interface MessageService {
     boolean sendSimpleMessage(Message message);
 
     boolean sendContractSignMessage(Message message);
+
+    boolean sendSystemMessage(Message message);
+
+//    void deleteSystemMessageAfterDays(int day);
 }

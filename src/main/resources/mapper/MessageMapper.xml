@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sflc.websocket.mapper.MessageMapper">
+
+	<resultMap type="com.sflc.websocket.model.Message" id="messageMap">
+		<!--<id property="uid" column="id"></id>-->
+		<result property="from" column="send_from"/>
+		<result property="to" column="send_to"/>
+		<result property="text" column="text"/>
+		<result property="title" column="title"/>
+	</resultMap>
+
+    <insert id="insertWebNotice" parameterType="com.sflc.websocket.model.Message">
+    	INSERT INTO T_SYS_WEBNOTICE(
+    	  ID
+    	  ,SEND_FROM
+    	  ,SEND_TO
+    	  ,TEXT
+    	  ,CREATE_TIME
+    	  ,TITLE
+    	) VALUES (
+          #{id}
+          ,#{from}
+          ,#{to}
+          ,#{text}
+          ,SYSDATE
+          ,#{title}
+    	)
+    </insert>
+
+	<insert id="insertWebNoticeWaitRead" parameterType="com.sflc.websocket.model.MessageRead">
+    	INSERT INTO T_SYS_WEBNOTICE_WAITREAD(
+    	  ID
+    	  ,USER_CODE
+    	  ,NOTICE_ID
+    	  ,STATUS
+    	) VALUES (
+    	  SEQ_T_SYS_WEBNOTICE_WAITREAD.NEXTVAL
+          ,#{user_code}
+          ,#{notice_id}
+          ,0
+    	)
+    </insert>
+
+	<update id="mergeWebNoticeWaitRead" parameterType="com.sflc.websocket.model.MessageRead">
+    	MERGE INTO T_SYS_WEBNOTICE_WAITREAD T
+    		USING DUAL ON (
+				T.NOTICE_ID = #{notice_id} AND T.USER_CODE = #{user_code}
+			)
+		WHEN NOT MATCHED THEN INSERT (
+			ID
+			,USER_CODE
+			,NOTICE_ID
+			,STATUS
+		) VALUES (
+			SEQ_T_SYS_WEBNOTICE_WAITREAD.NEXTVAL
+            ,#{user_code}
+            ,#{notice_id}
+            ,0
+		)
+    </update>
+
+	<update id="updateNoticeDelAfterDays" parameterType="java.lang.Integer">
+    	UPDATE T_SYS_WEBNOTICE T
+    		SET T.IS_DEL = 1
+    	WHERE TRUNC(SYSDATE) > TRUNC(T.CREATE_TIME + #{day})
+    		AND T.SEND_FROM = '系统通知'
+    </update>
+
+	<delete id="deleteNoticeWaitReadAfterDays" parameterType="java.lang.Integer">
+    	DELETE T_SYS_WEBNOTICE_WAITREAD T
+    		WHERE EXISTS (
+    			SELECT 1 FROM T_SYS_WEBNOTICE W
+    				WHERE W.ID = T.NOTICE_ID
+    				AND TRUNC(SYSDATE) > TRUNC(W.CREATE_TIME + #{day})
+    				AND T.SEND_FROM = '系统通知'
+    		)
+    </delete>
+
+	<select id="getWebNoticeNextId" resultType="int">
+    	SELECT SEQ_T_SYS_WEBNOTICE.NEXTVAL FROM DUAL
+    </select>
+</mapper>

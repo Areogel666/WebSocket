@@ -14,11 +14,23 @@
         <result property="person_type" column="person_type"/>
         <result property="area" column="area"/>
     </resultMap>
+
     <select id="getUserByCode" parameterType="String" resultMap="userMap">
-    	select id,code,pwd_src,name,password,mobile,email,person_type,area from secu_user where code = #{code}
+    	SELECT ID, CODE, PWD_SRC, NAME, PASSWORD, MOBILE, EMAIL, PERSON_TYPE, AREA
+    	  FROM SECU_USER
+    	  WHERE CODE = #{code}
     </select>
+
     <select id="getUserById" parameterType="String" resultMap="userMap">
-    	select id,code,pwd_src,name,password,mobile,email,person_type,area from secu_user where id = #{id}
+    	SELECT ID, CODE, PWD_SRC, NAME, PASSWORD, MOBILE, EMAIL, PERSON_TYPE, AREA
+    	  FROM SECU_USER
+    	  WHERE ID = #{id}
+    </select>
+
+    <select id="getAllUserCode" resultType="String">
+    	SELECT CODE
+    	  FROM SECU_USER T
+    	  WHERE T.EMPLOYEE_TYPE != 6 AND T.CODE IS NOT NULL
     </select>
 
 </mapper>

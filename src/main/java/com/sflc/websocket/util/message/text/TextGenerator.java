@@ -1,10 +1,9 @@
-package com.sflc.websocket.util.message;
+package com.sflc.websocket.util.message.text;
 
-import com.sflc.websocket.base.MessageType;
 import com.sflc.websocket.model.Message;
-import com.sflc.websocket.util.message.entity.CommonText;
-import com.sflc.websocket.util.message.entity.SystemText;
-import com.sflc.websocket.util.message.entity.Text;
+import com.sflc.websocket.util.message.MessageType;
+import com.sflc.websocket.util.message.text.entity.CommonText;
+import com.sflc.websocket.util.message.text.entity.SystemText;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,40 +18,60 @@ import java.util.Optional;
  */
 public class TextGenerator {
     private Map<MessageType, Text> textMap = new HashMap<>();
-    private Text text;
-    private Message message;
     private static volatile TextGenerator instance;
 
-    private TextGenerator(Message message) {
-        textMap.put(MessageType.MESSAGE_TYPE_SYSTEM, new SystemText(message));
-        textMap.put(MessageType.MESSAGE_TYPE_LOGIN, new SystemText(message));
-        textMap.put(MessageType.MESSAGE_TYPE_COMMON, new CommonText(message));
+    private TextGenerator() {
+        textMap.put(MessageType.MESSAGE_TYPE_SYSTEM, new SystemText());
+        textMap.put(MessageType.MESSAGE_TYPE_LOGIN, new SystemText());
+        textMap.put(MessageType.MESSAGE_TYPE_COMMON, new CommonText());
     }
 
     /**
      * 获得文本生成器实例
      *
-     * @param message
      * @return com.sflc.websocket.util.message.TextGenerator
      * @description 单例模式
      * @author Areogel
      * @date 2020/9/16 16:56
      */
-    public static TextGenerator getTextGenerator(Message message) {
+    public static TextGenerator getTextGenerator() {
         if (instance == null) {
             synchronized (TextGenerator.class) {
                 if (instance == null) {
-                    instance = new TextGenerator(message);
+                    instance = new TextGenerator();
                 }
             }
         }
-        MessageType mType = message.getmType();
-        instance.text = Optional.ofNullable(instance.textMap.get(mType)).orElseGet(() -> new SystemText(message));
-        instance.message = message;
         return instance;
     }
 
-    public String simpleMessageText() {
+    /**
+     * 获得Text类
+     *
+     * @param message
+     * @return com.sflc.websocket.util.message.text.Text
+     * @description
+     * @author Areogel
+     * @date 2020/10/16 18:56
+     */
+    private Text getText(Message message) {
+        MessageType mType = message.getmType();
+        return Optional.ofNullable(textMap.get(mType))
+                .orElseGet(SystemText::new)
+                .setMessageAndGet(message);
+    }
+
+    /**
+     * 生成通用消息文本
+     *
+     * @param
+     * @return java.lang.String
+     * @description
+     * @author Areogel
+     * @date 2020/10/16 18:56
+     */
+    public String genericMessageText(Message message) {
+        Text text = getText(message);
         String textStr = "<span style=\"color:#964a5a;font-size:14px;font-weight:bold;\">"
                 + text.getTime() + " -" + text.getHead() + "：</span></br>"
                 + "<div style=\"margin-left:14px;margin-top:10px;\"><span style=\"color:#964a5a;font-size:14px;\">"
@@ -60,7 +79,17 @@ public class TextGenerator {
         return textStr;
     }
 
-    public String loginMessageText() {
+    /**
+     * 生成上下线消息文本
+     *
+     * @param
+     * @return java.lang.String
+     * @description
+     * @author Areogel
+     * @date 2020/10/16 18:56
+     */
+    public String loginMessageText(Message message) {
+        Text text = getText(message);
         String textStr = "<span style=\"color:#964a5a;font-size:14px;font-weight:bold;\">"
                 + text.getDate() + " " + text.getTime() + "</span></br>"
                 + "<span style=\"color:#964a5a;font-size:14px;\">"
@@ -77,7 +106,17 @@ public class TextGenerator {
         return textStr;
     }
 
-    public String contractSignMessageText() {
+    /**
+     * 生成合同提醒消息文本
+     *
+     * @param
+     * @return java.lang.String
+     * @description
+     * @author Areogel
+     * @date 2020/10/16 18:56
+     */
+    public String contractSignMessageText(Message message) {
+        Text text = getText(message);
         String textStr = "<span style=\"color:#964a5a;font-size:14px;font-weight:bold;\">"
                 + text.getTime() + " -" + text.getHead() + "：</span></br>"
                 + "<div style=\"margin-left:14px;margin-top:10px;\"><span style=\"color:#964a5a;font-size:14px;\">"

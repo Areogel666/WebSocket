@@ -1,4 +1,6 @@
-package com.sflc.websocket.util.message.entity;
+package com.sflc.websocket.util.message.text;
+
+import com.sflc.websocket.model.Message;
 
 /**
  * @ClassName Text
@@ -14,4 +16,6 @@ public interface Text {
     public String getTime();
 
     public String getDate();
+
+    public Text setMessageAndGet(Message message);
 }
