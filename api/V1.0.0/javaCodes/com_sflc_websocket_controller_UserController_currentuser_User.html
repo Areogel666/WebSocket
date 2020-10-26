@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>User</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.css">
+<link href="../style.css" rel="stylesheet" />
+</head>
+<body onload="PR.prettyPrint()">
+<pre class="prettyprint lang-java">
+public class User implements Serializable{
+
+    private String uid; //用户id
+    private String name; //用户名
+    private String code; //用户账号
+    private String pwdSrc; //用户源密码
+    private String password; //用户加密密码
+    private String mobile; //用户手机号码
+    private String email; //用户邮箱
+    private String personType; //用户类型
+    private String area; //用户区域
+
+    public String getUid(){
+        return uid;
+    }
+
+    public void setUid(String uid){
+        this.uid = uid;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getCode(){
+        return code;
+    }
+
+    public void setCode(String code){
+        this.code = code;
+    }
+
+    public String getPwdSrc(){
+        return pwdSrc;
+    }
+
+    public void setPwdSrc(String pwdSrc){
+        this.pwdSrc = pwdSrc;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public String getMobile(){
+        return mobile;
+    }
+
+    public void setMobile(String mobile){
+        this.mobile = mobile;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public String getPersonType(){
+        return personType;
+    }
+
+    public void setPersonType(String personType){
+        this.personType = personType;
+    }
+
+    public String getArea(){
+        return area;
+    }
+
+    public void setArea(String area){
+        this.area = area;
+    }
+
+}
+</pre>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.js"></script>
+</body>
+</html>

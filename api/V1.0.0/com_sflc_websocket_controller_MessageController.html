@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>消息提醒类（MessageController）</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="PR.prettyPrint()">
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                webSocket
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://github.com/YeDaxia/JApiDocs" target="_blank">GitHub</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">V1.0.0<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="book with-summary">
+    <div class="book-summary">
+<div class="search-box form-group">
+    <input type="text" class="form-control" id="inputSearch" placeholder="搜索接口">
+    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+</div>
+<div id="accordion" class="catalog">
+        <div class="panel">
+            <div id="heading0" data-parent="#accordion" class="catalog-title" data-toggle="collapse"
+                 aria-expanded="true" data-target="#collapse0" aria-controls="collapse0">
+                <i class="glyphicon glyphicon-align-justify"></i> 消息提醒类（MessageController）
+            </div>
+            <div id="collapse0" class="collapse in " aria-labelledby="heading0">
+                    <a class="catalog-item" href="com_sflc_websocket_controller_MessageController.html#sendSimpleMessage">
+                        发送一般消息通用接口
+                    </a>
+                    <a class="catalog-item" href="com_sflc_websocket_controller_MessageController.html#sendSystemMessage">
+                        发送系统消息通用接口
+                    </a>
+                    <a class="catalog-item" href="com_sflc_websocket_controller_MessageController.html#sendLoginMessage">
+                        发送登录登出消息通知接口
+                    </a>
+                    <a class="catalog-item" href="com_sflc_websocket_controller_MessageController.html#sendContractSignMessage">
+                        发送电子合同签约消息通知接口
+                    </a>
+            </div>
+        </div>
+        <div class="panel">
+            <div id="heading1" data-parent="#accordion" class="catalog-title" data-toggle="collapse"
+                 aria-expanded="true" data-target="#collapse1" aria-controls="collapse1">
+                <i class="glyphicon glyphicon-align-justify"></i> 用户信息类（UserController）
+            </div>
+            <div id="collapse1" class="collapse " aria-labelledby="heading1">
+                    <a class="catalog-item" href="com_sflc_websocket_controller_UserController.html#loginvalidate">
+                        登录消息平台
+                    </a>
+                    <a class="catalog-item" href="com_sflc_websocket_controller_UserController.html#login">
+                        登录页跳转
+                    </a>
+                    <a class="catalog-item" href="com_sflc_websocket_controller_UserController.html#logout">
+                        登出页跳转
+                    </a>
+                    <a class="catalog-item" href="com_sflc_websocket_controller_UserController.html#currentuser">
+                        查询当前在线用户
+                    </a>
+                    <a class="catalog-item" href="com_sflc_websocket_controller_UserController.html#onlineusers">
+                        在线用户（除本账号）
+                    </a>
+            </div>
+        </div>
+</div>    </div>
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+                <div class="d-flex justify-content-between">
+                    <a class="header-menu toggle-catalog" href="javascript:void(0)"><i
+                            class="glyphicon glyphicon-align-justify"></i> 目录</a>
+                </div>
+            </div>
+            <div class="page-wrapper">
+                <div class="page-inner">
+                    <div class="action-list">
+                        <div class="action-item">
+<h2 id="sendSimpleMessage"><a href="#">发送一般消息通用接口 </a></h2>
+    <p class="text-muted">用户编辑发送</p>
+    <p class="text-muted"><em>作者: Areogel</em></p>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/message/sendSimpleMessage</code>
+        <span class="label label-default">GET</span>
+        <span class="label label-default">POST</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>is_cache</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td>主键id</td>
+                    </tr>
+                    <tr>
+                        <td>from</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>发送者name</td>
+                    </tr>
+                    <tr>
+                        <td>to</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>接收者name</td>
+                    </tr>
+                    <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>发送的文本</td>
+                    </tr>
+                    <tr>
+                        <td>date</td>
+                        <td>date</td>
+                        <td>否</td>
+                        <td>发送时间</td>
+                    </tr>
+                    <tr>
+                        <td>title</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>消息类别说明</td>
+                    </tr>
+                    <tr>
+                        <td>is_cache</td>
+                        <td>boolean</td>
+                        <td>否</td>
+                        <td>是否存储</td>
+                    </tr>
+                    <tr>
+                        <td>mType</td>
+                        <td>enum</td>
+                        <td>否</td>
+                        <td>消息样式类型(用于文本样式生成) [MESSAGE_TYPE_SYSTEM,MESSAGE_TYPE_LOGIN,MESSAGE_TYPE_COMMON]</td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"flag":"boolean",
+	"msg":"string",
+	"data":"object"
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/com_sflc_websocket_controller_MessageController_sendSimpleMessage_Reply.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/com_sflc_websocket_controller_MessageController_sendSimpleMessage_Reply.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="sendSystemMessage"><a href="#">发送系统消息通用接口 </a></h2>
+    <p class="text-muted">用户编辑发送</p>
+    <p class="text-muted"><em>作者: Areogel</em></p>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/message/sendSystemMessage</code>
+        <span class="label label-default">GET</span>
+        <span class="label label-default">POST</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>is_cache</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td>主键id</td>
+                    </tr>
+                    <tr>
+                        <td>from</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>发送者name</td>
+                    </tr>
+                    <tr>
+                        <td>to</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>接收者name</td>
+                    </tr>
+                    <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>发送的文本</td>
+                    </tr>
+                    <tr>
+                        <td>date</td>
+                        <td>date</td>
+                        <td>否</td>
+                        <td>发送时间</td>
+                    </tr>
+                    <tr>
+                        <td>title</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>消息类别说明</td>
+                    </tr>
+                    <tr>
+                        <td>is_cache</td>
+                        <td>boolean</td>
+                        <td>否</td>
+                        <td>是否存储</td>
+                    </tr>
+                    <tr>
+                        <td>mType</td>
+                        <td>enum</td>
+                        <td>否</td>
+                        <td>消息样式类型(用于文本样式生成) [MESSAGE_TYPE_SYSTEM,MESSAGE_TYPE_LOGIN,MESSAGE_TYPE_COMMON]</td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"flag":"boolean",
+	"msg":"string",
+	"data":"object"
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/com_sflc_websocket_controller_MessageController_sendSystemMessage_Reply.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/com_sflc_websocket_controller_MessageController_sendSystemMessage_Reply.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="sendLoginMessage"><a href="#">发送登录登出消息通知接口 </a></h2>
+    <p class="text-muted"></p>
+    <p class="text-muted"><em>作者: Areogel</em></p>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/message/sendLoginMessage</code>
+        <span class="label label-default">GET</span>
+        <span class="label label-default">POST</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td>主键id</td>
+                    </tr>
+                    <tr>
+                        <td>from</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>发送者name</td>
+                    </tr>
+                    <tr>
+                        <td>to</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>接收者name</td>
+                    </tr>
+                    <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>发送的文本</td>
+                    </tr>
+                    <tr>
+                        <td>date</td>
+                        <td>date</td>
+                        <td>否</td>
+                        <td>发送时间</td>
+                    </tr>
+                    <tr>
+                        <td>title</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>消息类别说明</td>
+                    </tr>
+                    <tr>
+                        <td>is_cache</td>
+                        <td>boolean</td>
+                        <td>否</td>
+                        <td>是否存储</td>
+                    </tr>
+                    <tr>
+                        <td>mType</td>
+                        <td>enum</td>
+                        <td>否</td>
+                        <td>消息样式类型(用于文本样式生成) [MESSAGE_TYPE_SYSTEM,MESSAGE_TYPE_LOGIN,MESSAGE_TYPE_COMMON]</td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"flag":"boolean",
+	"msg":"string",
+	"data":"object"
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/com_sflc_websocket_controller_MessageController_sendLoginMessage_Reply.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/com_sflc_websocket_controller_MessageController_sendLoginMessage_Reply.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="sendContractSignMessage"><a href="#">发送电子合同签约消息通知接口 </a></h2>
+    <p class="text-muted">系统编辑发送</p>
+    <p class="text-muted"><em>作者: Areogel</em></p>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/message/sendContractSignMessage</code>
+        <span class="label label-default">GET</span>
+        <span class="label label-default">POST</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>is_cache</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td>主键id</td>
+                    </tr>
+                    <tr>
+                        <td>from</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>发送者name</td>
+                    </tr>
+                    <tr>
+                        <td>to</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>接收者name</td>
+                    </tr>
+                    <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>发送的文本</td>
+                    </tr>
+                    <tr>
+                        <td>date</td>
+                        <td>date</td>
+                        <td>否</td>
+                        <td>发送时间</td>
+                    </tr>
+                    <tr>
+                        <td>title</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>消息类别说明</td>
+                    </tr>
+                    <tr>
+                        <td>is_cache</td>
+                        <td>boolean</td>
+                        <td>否</td>
+                        <td>是否存储</td>
+                    </tr>
+                    <tr>
+                        <td>mType</td>
+                        <td>enum</td>
+                        <td>否</td>
+                        <td>消息样式类型(用于文本样式生成) [MESSAGE_TYPE_SYSTEM,MESSAGE_TYPE_LOGIN,MESSAGE_TYPE_COMMON]</td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"flag":"boolean",
+	"msg":"string",
+	"data":"object"
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/com_sflc_websocket_controller_MessageController_sendContractSignMessage_Reply.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/com_sflc_websocket_controller_MessageController_sendContractSignMessage_Reply.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.js"></script>
+<script>
+
+    var search_source_data = [
+            {name: '消息提醒类（MessageController）.发送一般消息通用接口', url: 'com_sflc_websocket_controller_MessageController.html#sendSimpleMessage'},
+            {name: '消息提醒类（MessageController）.发送系统消息通用接口', url: 'com_sflc_websocket_controller_MessageController.html#sendSystemMessage'},
+            {name: '消息提醒类（MessageController）.发送登录登出消息通知接口', url: 'com_sflc_websocket_controller_MessageController.html#sendLoginMessage'},
+            {name: '消息提醒类（MessageController）.发送电子合同签约消息通知接口', url: 'com_sflc_websocket_controller_MessageController.html#sendContractSignMessage'},
+            {name: '用户信息类（UserController）.登录消息平台', url: 'com_sflc_websocket_controller_UserController.html#loginvalidate'},
+            {name: '用户信息类（UserController）.登录页跳转', url: 'com_sflc_websocket_controller_UserController.html#login'},
+            {name: '用户信息类（UserController）.登出页跳转', url: 'com_sflc_websocket_controller_UserController.html#logout'},
+            {name: '用户信息类（UserController）.查询当前在线用户', url: 'com_sflc_websocket_controller_UserController.html#currentuser'},
+            {name: '用户信息类（UserController）.在线用户（除本账号）', url: 'com_sflc_websocket_controller_UserController.html#onlineusers'},
+    ];
+
+
+
+    $('.toggle-catalog').click(function () {
+        $('.book').toggleClass('with-summary');
+    });
+
+    $('#inputSearch').autocomplete({hint: false}, [
+        {
+            source: function (query, callback) {
+                var result = [];
+                for(var i = 0; i !== search_source_data.length; i++){
+                    if(search_source_data[i].name.indexOf(query) !== -1){
+                        result.push(search_source_data[i]);
+                    }
+                }
+                callback(result);
+            },
+            displayKey: 'name',
+            templates: {
+                suggestion: function (suggestion) {
+                    return suggestion.name;
+                }
+            }
+        }
+    ]).on('autocomplete:selected', function (event, suggestion, dataset, context) {
+        self.location = suggestion.url;
+    });
+</script>
+</body>
+</html>

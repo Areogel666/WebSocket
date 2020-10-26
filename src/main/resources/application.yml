@@ -1,5 +1,5 @@
 server:
-  port: 8086
+  port: 20080
 
 logging:
   path: log
@@ -14,33 +14,14 @@ spring:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     name: sflc
     #dev
-    url: jdbc:oracle:thin:@192.168.100.10:1521:prod
-    username: sflcgood20200710
-    password: sflcgood20200710
+#    url: jdbc:oracle:thin:@192.168.100.10:1521:prod
+#    username: sflcgood20200710
+#    password: sflcgood20200710
     #pro
-    #    url: jdbc:oracle:thin:@172.16.102.181:1521:sflcdb2
-    #    url: jdbc:oracle:thin:@211.151.130.26:41626:sflcdb2
-    #    username: sflcgood
-    #    password: sflcgood
+        url: jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.16.102.182)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = 172.16.102.183)(PORT = 1521))(LOAD_BALANCE = yes)(FAILOVER = ON)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = sflcdb)(FAILOVER_MODE=(TYPE = SELECT)(METHOD = BASIC)(RETIRES = 20)(DELAY = 15))))
+        username: sflcgood
+        password: sflcgood
     type: com.alibaba.druid.pool.DruidDataSource
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-
-  activemq:
-    #dev
-    broker-url: tcp://192.168.150.8:61616
-    #pro
-    #    broker-url: tcp://172.16.102.50:61616
-    #    #broker-url: http://mq.strongflc.com
-    user: admin
-    password: admin
-    #    user: admin
-    #    password: Sflcit2019.@123090
-    in-memory: true
-    pool:
-      enabled: false
-      max-connections: 10
-      idle-timeout: 30000
-    packages:
-      trust-all: true
